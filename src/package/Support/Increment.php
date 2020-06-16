@@ -7,15 +7,21 @@ use Illuminate\Support\Arr;
 class Increment
 {
     protected $config;
+    /**
+     * @var Git
+     */
+    protected Git $git;
 
     /**
      * Cache constructor.
      *
      * @param Config $config
+     * @param Git $git
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, Git $git)
     {
         $this->config = $config;
+        $this->git = $git;
     }
 
     /**
@@ -47,6 +53,11 @@ class Increment
     public function incrementCommit($by = null)
     {
         $result = $this->increment(function ($config) use ($by) {
+            if (in_array($config['commit']['mode'], [Constants::VERSION_SOURCE_GIT_LOCAL, Constants::VERSION_SOURCE_GIT_REMOTE])) {
+                $config['current']['commit'] = $this->git->getCommit();
+
+                return $config;
+            }
             $increment_by = $by ?: $config['commit']['increment-by'];
 
             $config['current']['commit'] = $this->incrementHex($config['current']['commit'], $increment_by);

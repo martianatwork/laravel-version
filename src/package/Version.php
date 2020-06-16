@@ -148,7 +148,7 @@ class Version
         ]);
 
         $this->instantiateClass($increment, 'increment', Increment::class, [
-            $config,
+            $config, $git
         ]);
 
         $timestamp = $this->instantiateClass($increment, 'timestamp', Timestamp::class, [

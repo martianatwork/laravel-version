@@ -87,6 +87,7 @@ class Git
      * @param string|null $from
      *
      * @return string
+     * @throws Exception
      */
     public function getCommit($from = null)
     {
@@ -102,6 +103,7 @@ class Git
      * @param string|null $from
      *
      * @return string
+     * @throws Exception
      */
     public function getTimestamp($from = null)
     {
@@ -147,6 +149,7 @@ class Git
      * @param int $length
      *
      * @return bool|mixed|null|string
+     * @throws Exception
      */
     protected function getFromGit($command, $length = 256)
     {
@@ -159,6 +162,7 @@ class Git
      * @param null $from
      *
      * @return bool|mixed|null|string
+     * @throws Exception
      */
     public function getVersion($from = null)
     {
